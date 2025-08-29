@@ -2,11 +2,9 @@ import streamlit as st
 import os
 import logging
 from dotenv import dotenv_values
-
-# Local imports
 from main_system import EnhancedRAGSystem
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -15,7 +13,6 @@ def get_rag_system(api_key, folder_id):
     return EnhancedRAGSystem(api_key, folder_id)
 
 def main():
-    # Page configuration
     st.set_page_config(
         page_title="Multi-Document RAG System",
         page_icon="📚",
@@ -23,7 +20,6 @@ def main():
         initial_sidebar_state="expanded"
     )
     
-    # Custom CSS
     st.markdown("""
     <style>
     .main-header {
@@ -58,14 +54,7 @@ def main():
         margin: 5px 0;
         margin-right: 20%;
     }
-/*    .source-citation {
-        background-color: #f5f5f5;
-        border-left: 3px solid #2196f3;
-        padding: 8px;
-        margin: 5px 0;
-        font-size: 0.9em;
-        border-radius: 5px;
-    } */
+
     .stats-card {
         background-color: #424242;
         border: 1px solid #dee2e6;
@@ -76,7 +65,6 @@ def main():
     </style>
     """, unsafe_allow_html=True)
     
-    # Load configuration
     config = dotenv_values("csq_project.env")
     gemini_api_key = config.get("GOOGLE_API_KEY") or os.getenv("GOOGLE_API_KEY")
     
@@ -170,11 +158,6 @@ def main():
             
             # Assistant message
             st.markdown(f'<div class="assistant-message">{chat["assistant"]}</div>', unsafe_allow_html=True)
-            
-            # Source citations
-            # if chat.get("sources"):
-            #     sources_text = ", ".join(chat["sources"])
-            #     st.markdown(f'<div class="source-citation"><strong>Sources:</strong> {sources_text}</div>', unsafe_allow_html=True)
             
             st.markdown("<br>", unsafe_allow_html=True)
         

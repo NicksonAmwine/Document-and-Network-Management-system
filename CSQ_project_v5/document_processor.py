@@ -130,11 +130,10 @@ class DocumentHandler:
     def download_and_extract_text(self, service, file_id: str) -> str:
         """Downloads a file from Drive and extracts its text."""
         try:
-            # Get file metadata to determine its type
+            # Get file metadata to determine file type
             file_metadata = service.files().get(fileId=file_id).execute()
             file_name = file_metadata.get('name')
             mime_type = file_metadata.get('mimeType')
-            modified_time = file_metadata.get('modifiedTime')
             
             logger.info(f"Downloading '{file_name}' (MIME type: {mime_type})...")
 
